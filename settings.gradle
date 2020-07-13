@@ -1,0 +1,3 @@
+rootProject.name='DomainAdapter'
+include ':app'
+include ':domainadapter'

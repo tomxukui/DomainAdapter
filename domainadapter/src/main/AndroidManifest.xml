@@ -1,0 +1,15 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.xukui.library.domainadapter">
+
+    <application>
+
+        <activity
+            android:name=".ui.DomainsActivity"
+            android:label="域名管理"
+            android:screenOrientation="portrait"
+            android:theme="@style/DomainAdapter_AppTheme"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+    </application>
+
+</manifest>
