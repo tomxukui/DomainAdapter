@@ -1,8 +1,8 @@
 package com.xukui.library.domainadapter.bean;
 
-import android.support.annotation.NonNull;
-
 import java.io.Serializable;
+
+import androidx.annotation.NonNull;
 
 public class KeyValue implements Serializable, Cloneable {
 

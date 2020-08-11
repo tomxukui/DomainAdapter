@@ -1,9 +1,5 @@
 package com.xukui.library.domainadapter.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -11,11 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.xukui.library.domainadapter.R;
 import com.xukui.library.domainadapter.bean.KeyValue;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class DomainsRecyclerAdapter extends RecyclerView.Adapter<DomainsRecyclerAdapter.ViewHolder> {
 

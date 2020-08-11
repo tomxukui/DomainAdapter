@@ -2,7 +2,6 @@ package com.xukui.library.domainadapter.store;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.Nullable;
 
 import com.xukui.library.domainadapter.DomainManager;
 import com.xukui.library.domainadapter.bean.KeyValue;
@@ -12,6 +11,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.Nullable;
 
 public class DomainStore {
 
