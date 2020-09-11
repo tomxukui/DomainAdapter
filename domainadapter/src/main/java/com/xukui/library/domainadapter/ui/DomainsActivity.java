@@ -76,7 +76,10 @@ public class DomainsActivity extends AppCompatActivity {
         } else if (item.getItemId() == R.id.action_save) {
             List<KeyValue> actualList = mRecyclerAdapter.getActualData();
 
-            if (actualList != null) {
+            if (actualList == null) {
+                ToastUtil.showShort("暂无数据, 无需保存");
+
+            } else {
                 boolean success = DomainStore.getInstance().putAll(actualList);
 
                 if (success) {
@@ -85,7 +88,20 @@ public class DomainsActivity extends AppCompatActivity {
                         LogUtil.d("域名保存成功, 详情:\n" + (TextUtils.isEmpty(des) ? "无" : des));
                     }
 
-                    ToastUtil.showShort("保存成功, 请重启后再试!");
+                    Dialog dialog = new AlertDialog.Builder(this)
+                            .setTitle("提示")
+                            .setMessage("保存成功, App将自动关闭, 需要手动重启!")
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    DomainManager.closeApp();
+                                }
+
+                            })
+                            .create();
+                    dialog.setCancelable(false);
+                    dialog.show();
 
                 } else {
                     ToastUtil.showShort("保存失败");
