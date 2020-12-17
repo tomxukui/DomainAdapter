@@ -13,6 +13,7 @@ import com.xukui.library.domainadapter.setup.impl.DefaultLogger;
 import com.xukui.library.domainadapter.setup.impl.DefaultToaster;
 import com.xukui.library.domainadapter.store.DomainStore;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class DomainManager {
     private static boolean mIsLogEnabled;//是否打印日志
     private static List<DomainTemplate> mDomainTemplates;
 
-    private static List<Activity> mActivities;
+    private static List<WeakReference<Activity>> mActivities;
 
     private DomainManager() {
     }
@@ -105,7 +106,7 @@ public class DomainManager {
 
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                mActivities.add(activity);
+                mActivities.add(new WeakReference<>(activity));
             }
 
             @Override
@@ -130,7 +131,14 @@ public class DomainManager {
 
             @Override
             public void onActivityDestroyed(Activity activity) {
-                mActivities.remove(activity);
+                for (int i = mActivities.size() - 1; i >= 0; i--) {
+                    WeakReference<Activity> item = mActivities.get(i);
+
+                    if (activity == item.get()) {
+                        mActivities.remove(item);
+                        break;
+                    }
+                }
             }
 
         });
@@ -141,8 +149,10 @@ public class DomainManager {
      */
     public static void closeApp() {
         for (int i = mActivities.size() - 1; i >= 0; i--) {
-            Activity activity = mActivities.get(i);
-            activity.finish();
+            Activity activity = mActivities.get(i).get();
+            if (activity != null) {
+                activity.finish();
+            }
         }
 
         //不能先杀掉主进程, 否则逻辑代码无法继续执行, 需先杀掉相关进程最后杀掉主进程
